@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "크롬북에 학습환경을 구성하기 위한 분투기 -1-"
+title: "크롬북에 학습환경을 구성하기 위한 분투기"
 categories: it
 ---
 
@@ -23,7 +23,7 @@ categories: it
 
   하지만, 리눅스 환경이 PODMAN을 제외하고는 거의 모든 기능을 사용할 수 있고, 크롬OS 자체 동작속도는 쾌적했기 때문에 최대한 적응해 보기로 한다. (사실 해외구매라, 반품하기가 힘들었다...)
 
-  - ~~Jump Desktop으로 Mac 접속 (포기)~~ 외부 환경에서 맥ssh 접속으로 대체
+  - ~~Jump Desktop으로 Mac 접속 (포기)~~ [외부 환경에서 맥ssh 접속으로 대체]({% post_url 2022-06-21-post-ConnectToMac %})
   - 블로그 작성환경 구성 (Jekyll)
   - 리눅스에 한글입력 적용 (ttyd 적용)
 
