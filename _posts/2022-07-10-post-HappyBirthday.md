@@ -2,6 +2,7 @@
 layout: post
 title: "생일 축하 합니다~"
 categories: life
+published: true
 ---
 
   Happy Birthday to 도담이엄마!!
