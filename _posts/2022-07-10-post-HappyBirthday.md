@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "생일 축하 합니다~"
+title: 생일 축하 합니다~
 categories: life
 published: true
 ---

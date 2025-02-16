@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "도담, 세상에 나오다"
+title:  도담, 세상에 나오다
 categories: life
 published: true
 ---
