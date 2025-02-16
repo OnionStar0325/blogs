@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "작지만 강한"
+title:  작지만 강한
 date:   2022-01-14 14:00:00 +0000
 categories: life
 ---

@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "새로운 멤버 들어오다"
+title:  새로운 멤버 들어오다
 date:   2021-12-31 14:00:00 +0000
 categories: life
 ---

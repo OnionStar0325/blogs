@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "크롬북에 학습환경을 구성하기 위한 분투기"
+title: 크롬북에 학습환경을 구성하기 위한 분투기
 categories: it
 ---
 

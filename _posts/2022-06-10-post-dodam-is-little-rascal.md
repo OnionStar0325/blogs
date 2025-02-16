@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "도담이는..."
+title: 도담이는...
 categories: life
 ---
 

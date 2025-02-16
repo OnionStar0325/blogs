@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "도담 is comming"
+title: 도담 is comming
 categories: life
 published: true
 ---
