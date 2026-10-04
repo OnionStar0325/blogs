@@ -79,7 +79,7 @@ jekyll-spaceship:
       code: 'mermaid!'
       custom: ['@startmermaid', '@endmermaid']
     config:
-      theme: default
+      theme: neutral
     src: https://mermaid.ink/svg/
   media-processor:
     default:

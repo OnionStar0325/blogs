@@ -21,19 +21,33 @@ Jekyll 기반 블로그에서 기술 문서와 일상 생활 기록을 함께 �
 3. **가독성 및 기능 부재**: 기본 테마의 가독성이 낮고, 코드 블록 복사 기능이 없음.
 
 ```mermaid!
-flowchart LR
-    subgraph Before["기존 구조"]
-        A1["Git 저장소"] --> B1["_posts (기술 + 일상 혼재)"]
-        A1 --> C1["assets/images (개인 사진 저장소 노출)"]
+flowchart TD
+    subgraph Before ["기존 구조 (자산 혼재 및 보안 노출)"]
+        direction LR
+        B1["GitHub 저장소 (15MB+)"] --> B2["_posts (기술 + 일상 혼재)"]
+        B1 --> B3["assets/images (가족 사진 전체 노출)"]
     end
 
-    subgraph After["개선 구조"]
-        A2["Git 저장소"] --> B2["_posts/tech (기술문서)"]
-        A2 --> B3["_posts/life (일상기록)"]
-        A2 --> D2["Git Pre-commit Hook"]
-        D2 -->|자동 동기화| E2["Cloudflare R2 (blogs-assets)"]
-        E2 --> F2["CDN (cdn.onionstar.co.kr)<br/>+ Security Rules 차단"]
+    subgraph After ["개선 구조 (코드/미디어 분리 및 보안 강화)"]
+        direction LR
+        subgraph Git ["GitHub 저장소 (100KB)"]
+            A1["_posts/tech (기술문서)"]
+            A2["_posts/life (일상기록)"]
+        end
+        
+        Hook["Git Pre-commit Hook"] -->|자동 업로드| R2[("Cloudflare R2<br/>blogs-assets")]
+        R2 --> CDN["CDN (cdn.onionstar.co.kr)<br/>Security Rules 차단"]
     end
+
+    classDef legacy fill:#f8fafc,stroke:#94a3b8,stroke-width:1px,color:#475569,stroke-dasharray: 4 4;
+    classDef modern fill:#ffffff,stroke:#3b82f6,stroke-width:1.5px,color:#1e3a8a;
+    classDef storage fill:#f0fdf4,stroke:#10b981,stroke-width:1.5px,color:#065f46;
+    classDef security fill:#eff6ff,stroke:#6366f1,stroke-width:1.5px,color:#312e81;
+
+    class B1,B2,B3 legacy;
+    class A1,A2 modern;
+    class Hook,CDN security;
+    class R2 storage;
 ```
 
 ---

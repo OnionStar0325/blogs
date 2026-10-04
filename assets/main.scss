@@ -526,6 +526,18 @@ img {
   user-select: none;
 }
 
+.post-content img.mermaid,
+img.mermaid {
+  display: block;
+  margin: 2rem auto;
+  max-width: 100%;
+  background-color: var(--bg-primary);
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+
 /* Code & Pre */
 .highlighter-rouge,
 .highlight,
