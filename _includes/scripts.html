@@ -72,5 +72,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     block.appendChild(copyButton);
   });
+
+  // Prevent image downloading via context menu (right-click) and dragging
+  document.addEventListener('contextmenu', (e) => {
+    if (e.target && e.target.nodeName === 'IMG') {
+      e.preventDefault();
+      return false;
+    }
+  });
+
+  document.addEventListener('dragstart', (e) => {
+    if (e.target && e.target.nodeName === 'IMG') {
+      e.preventDefault();
+      return false;
+    }
+  });
 });
 </script>

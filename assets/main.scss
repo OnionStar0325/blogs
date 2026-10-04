@@ -505,7 +505,8 @@ a:hover {
   margin-bottom: 0;
 }
 
-.post-content img {
+.post-content img,
+img {
   max-width: 100%;
   height: auto;
   border-radius: var(--radius-md);
@@ -513,6 +514,16 @@ a:hover {
   border: 1px solid var(--border-color);
   box-shadow: var(--card-shadow);
   display: block;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /* Code & Pre */
