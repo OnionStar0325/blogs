@@ -14,3 +14,8 @@ Gemfile.lock
 # Ignore local media assets (hosted on Cloudflare R2)
 assets/images/
 card.jpg
+
+# Environment & Secrets
+.env
+.env.local
+.env.*.local

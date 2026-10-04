@@ -1,0 +1,5 @@
+# Local development overrides for Jekyll
+# Loaded with: bundle exec jekyll serve --config _config.yml,_config_dev.yml
+
+# Use local images directory for instant local testing before R2 upload
+cdn_url: "/assets/images"
