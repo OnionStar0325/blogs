@@ -1,0 +1,76 @@
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Add copy button to code blocks
+  const codeBlocks = document.querySelectorAll('div.highlighter-rouge, pre.highlight, .post-content pre');
+
+  codeBlocks.forEach((block) => {
+    // Prevent duplicate buttons if pre is inside highlighter-rouge
+    if (block.tagName === 'PRE' && block.closest('div.highlighter-rouge')) {
+      return;
+    }
+
+    const pre = block.tagName === 'PRE' ? block : block.querySelector('pre');
+    if (!pre) return;
+
+    // Ensure parent is relatively positioned
+    block.style.position = 'relative';
+
+    const copyButton = document.createElement('button');
+    copyButton.className = 'copy-code-button';
+    copyButton.type = 'button';
+    copyButton.setAttribute('aria-label', '코드 복사');
+    copyButton.innerHTML = `
+      <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+      </svg>
+      <span>Copy</span>
+    `;
+
+    copyButton.addEventListener('click', async () => {
+      const code = pre.querySelector('code') || pre;
+      const text = code.innerText.replace(/\n$/, '');
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          // Fallback for older or non-https contexts
+          const textArea = document.createElement('textarea');
+          textArea.value = text;
+          textArea.style.position = 'fixed';
+          textArea.style.opacity = '0';
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+        }
+
+        copyButton.classList.add('copied');
+        copyButton.innerHTML = `
+          <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Copied!</span>
+        `;
+
+        setTimeout(() => {
+          copyButton.classList.remove('copied');
+          copyButton.innerHTML = `
+            <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>Copy</span>
+          `;
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy code: ', err);
+      }
+    });
+
+    block.appendChild(copyButton);
+  });
+});
+</script>
