@@ -1,0 +1,16 @@
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <span>&copy; {{ 'now' | date: "%Y" }} {{ site.title | escape }}. All rights reserved.</span>
+    </div>
+    <div class="footer-links">
+      <a href="{{ "/feed.xml" | relative_url }}">RSS Feed</a>
+      {%- if site.github_username -%}
+      <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+      {%- endif -%}
+      {%- if site.email -%}
+      <a href="mailto:{{ site.email }}">Contact</a>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>

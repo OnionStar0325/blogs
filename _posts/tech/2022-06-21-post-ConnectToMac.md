@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 외부에 공개되어 있지 않은 Mac에 ssh 접속환경 만들기
-categories: it
+categories: tech
 ---
   크롬북을 구매하고 나서, 생각보다 쾌적한 사용성과 기능에 만족을 하였지만, 태생적인 하드웨어의 한계로 인하여, 크롬북은 단말기의 역할 그리고 Jekyll 기반의 블로그 작성에만 사용하기로 결정했다. (결정적인 계기는 크롬북에 RDBMS를 설치하기에는 무리라고 생각되어서이다)
   그래서 출장등으로 밖에 나와 있을 때에는 집에 있는 맥북에 SSH로 접속하여, 필요한 작업을 하기로 결정을 했다. 평소대로라면, 맥에 ssh포트를 열어두고, 공유기에서 포트포워딩을 했을텐데 크롬북이라는 특수성과 집에서 사용하고 있는 공유기에서 하기의 문제가 발생하였다.
@@ -61,5 +61,5 @@ service nginx reload
 ```text
 https://{dns or ip address}/{ttyd url}
 ```
-![Test Image](/assets/images/20220621-test_result.gif)
+![Test Image]({{ site.cdn_url }}/tech/20220621-test_result.gif)
 

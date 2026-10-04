@@ -1,0 +1,78 @@
+---
+layout: default
+---
+
+<div class="home-wrapper">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <h1 class="hero-title">{{ site.title | escape }}</h1>
+    <p class="hero-subtitle">
+      개발 및 시스템 구축에 관한 <strong>기술 문서</strong>와 소중한 가족과의 <strong>일상 기록</strong>을 함께 정리하는 공간입니다.
+    </p>
+
+    {%- assign tech_posts = site.posts | where_exp: "item", "item.categories contains 'tech' or item.categories contains 'it'" -%}
+    {%- assign life_posts = site.posts | where_exp: "item", "item.categories contains 'life'" -%}
+
+    <div class="category-chips">
+      <a href="{{ "/" | relative_url }}" class="category-chip active">
+        <span>전체 글</span>
+        <span class="count">{{ site.posts.size }}</span>
+      </a>
+      <a href="{{ "/tech/" | relative_url }}" class="category-chip">
+        <span>💻 기술 문서 (Tech)</span>
+        <span class="count">{{ tech_posts.size }}</span>
+      </a>
+      <a href="{{ "/life/" | relative_url }}" class="category-chip">
+        <span>🌿 일상 생활 (Life)</span>
+        <span class="count">{{ life_posts.size }}</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Post List -->
+  <section>
+    <div class="section-header">
+      <h2 class="section-title">최근 발행된 글</h2>
+    </div>
+
+    <div class="post-list">
+      {%- for post in site.posts -%}
+        {%- assign post_cat = post.categories | first | default: "post" | downcase -%}
+        <article class="post-card">
+          <a href="{{ post.url | relative_url }}">
+            <div class="post-card-header">
+              {%- if post_cat == 'tech' or post_cat == 'it' -%}
+                <span class="badge badge-tech">Tech</span>
+              {%- elsif post_cat == 'life' -%}
+                <span class="badge badge-life">Life</span>
+              {%- else -%}
+                <span class="badge badge-tech">{{ post_cat | upcase }}</span>
+              {%- endif -%}
+              <time class="post-date" datetime="{{ post.date | date_to_xmlschema }}">
+                {{ post.date | date: "%Y.%m.%d" }}
+              </time>
+            </div>
+
+            <h3 class="post-card-title">{{ post.title | escape }}</h3>
+
+            {%- if post.excerpt -%}
+              <p class="post-card-excerpt">
+                {{ post.excerpt | strip_html | strip_newlines | truncate: 160 }}
+              </p>
+            {%- endif -%}
+          </a>
+
+          {%- if post.tags and post.tags.size > 0 -%}
+            <div class="post-card-footer">
+              <div class="post-tags">
+                {%- for tag in post.tags -%}
+                  <span class="post-tag">#{{ tag }}</span>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endif -%}
+        </article>
+      {%- endfor -%}
+    </div>
+  </section>
+</div>

@@ -11,4 +11,4 @@ published: true
 아래 그림의 의미는 도담이엄마는 알 것으로 생각한다.
 앞으로도 잘 부탁하고, 우리 항상 행복합시다. 파이팅~!
 
-![HappyBirthday.png](/assets/images/20220710_HappyBirthday.png)
+![HappyBirthday.png]({{ site.cdn_url }}/life/20220710_HappyBirthday.png)

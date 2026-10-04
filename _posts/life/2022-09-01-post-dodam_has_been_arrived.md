@@ -11,4 +11,4 @@ published: true
 못한것에 미안한 마음도 컸다.
 다행스럽게도 아내와 도담이 모두 건강하였고, 입원 소속까지 무난하게 진행되었다.
 이제 파티 멤버가 다 모였으니, 새로운 마음가짐으로 다시 시작이다.
-![dodam](/assets/images/20220901_dodam.jpg)
+![dodam]({{ site.cdn_url }}/life/20220901_dodam.jpg)

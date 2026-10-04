@@ -10,3 +10,7 @@ vendor
 
 # Ignore Gemfile.lock
 Gemfile.lock
+
+# Ignore local media assets (hosted on Cloudflare R2)
+assets/images/
+card.jpg

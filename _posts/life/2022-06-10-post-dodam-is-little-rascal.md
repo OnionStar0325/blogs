@@ -13,4 +13,4 @@ categories: life
 이제 안정기에 접어들었지만 와이프는 아직도 걱정이 많다.  
 그러니 앞으로도 건강하게 잘 커주렴...  
 
-![dodam](/assets/images/20220610-dodam.gif)
+![dodam]({{ site.cdn_url }}/life/20220610-dodam.gif)

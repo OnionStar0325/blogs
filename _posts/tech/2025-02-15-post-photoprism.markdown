@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  PhotoPrism 셋업방법 (WSL2 + CloudFlare Tunnel + Nginx)
-categories: it
+categories: tech
 ---
 
 ---

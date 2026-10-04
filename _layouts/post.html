@@ -1,0 +1,59 @@
+---
+layout: default
+---
+<article class="post-article">
+  <header class="post-header">
+    {%- assign cat = page.categories | first | default: "post" | downcase -%}
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+      <a href="{% if cat == 'tech' %}{{ '/tech/' | relative_url }}{% elsif cat == 'life' %}{{ '/life/' | relative_url }}{% else %}{{ '/' | relative_url }}{% endif %}" class="post-back-link">
+        &larr; {% if cat == 'tech' %}Tech 목록으로{% elsif cat == 'life' %}Life 목록으로{% else %}전체 목록으로{% endif %}
+      </a>
+      
+      {%- if cat == 'tech' -%}
+        <span class="badge badge-tech">Tech</span>
+      {%- elsif cat == 'life' -%}
+        <span class="badge badge-life">Life</span>
+      {%- else -%}
+        <span class="badge badge-tech">{{ cat | upcase }}</span>
+      {%- endif -%}
+    </div>
+
+    <h1 class="post-title">{{ page.title | escape }}</h1>
+
+    <div class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">
+        {{ page.date | date: "%Y년 %m월 %d일" }}
+      </time>
+
+      {%- if page.tags and page.tags.size > 0 -%}
+        <div class="post-tags">
+          {%- for tag in page.tags -%}
+            <span class="post-tag">#{{ tag }}</span>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </header>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+  <nav class="post-navigation">
+    {%- if page.previous -%}
+      <a class="post-nav-item" href="{{ page.previous.url | relative_url }}">
+        <div class="post-nav-label">&larr; 이전 글</div>
+        <div class="post-nav-title">{{ page.previous.title | truncate: 40 }}</div>
+      </a>
+    {%- else -%}
+      <div style="flex: 1;"></div>
+    {%- endif -%}
+
+    {%- if page.next -%}
+      <a class="post-nav-item" style="text-align: right;" href="{{ page.next.url | relative_url }}">
+        <div class="post-nav-label">다음 글 &rarr;</div>
+        <div class="post-nav-title">{{ page.next.title | truncate: 40 }}</div>
+      </a>
+    {%- endif -%}
+  </nav>
+</article>

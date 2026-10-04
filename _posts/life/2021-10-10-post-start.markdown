@@ -6,4 +6,4 @@ categories: life
 ---
 
 코로나와 함께 다사다난했던 결혼 1주년을 기념하며, 새로운 블로그를 시작한다.
-![1st](/assets/images/20211010_onionstar.jpeg)
+![1st]({{ site.cdn_url }}/life/20211010_onionstar.jpeg)
