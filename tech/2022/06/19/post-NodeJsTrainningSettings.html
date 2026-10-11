@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.9.1 -->
+<title>크롬북에 학습환경을 구성하기 위한 분투기 | Onion &amp; Star Blog</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="크롬북에 학습환경을 구성하기 위한 분투기">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="나는 IT에 업을 두고 있긴 하지만, 사실 가지고 있는 IT기기는 좀 오래된 것들이 많다. 비교적 최신이라 할 수 있는게 Apple 실리콘의 아성에 밀려 밖에 가지고 나가기도 좀 창피한 2016년 맥북프로이니 말이다. 그런데 이것도 와이프가 일을 할 때 주로 쓰고 있는 상황이라서 내가 집에서 주력으로 쓰는 노트북은 와이프가 언제 샀는지 기억도 안나는 샌디브릿지 i3 노트북이다. 이마저도 이제 나이가 먹다보니 13인치의 작은 노트북은 눈을 많이 피로하게 되어서, 새로운 노트북을 사고 싶었다. 주 사용용도가 학습이고, 필요할 때만다 집에 있는 맥북에 접속하기 위한 용도이기 때문에 굳이 비싼 장비가 필요한 것은 아니었다. 여러 기기들을 둘러보다가 생각보다 비싼 가격에 포기해야 하나 생각하던 와중 17인치 모니터를 가진…">
+<meta name="twitter:description" property="og:description" content="나는 IT에 업을 두고 있긴 하지만, 사실 가지고 있는 IT기기는 좀 오래된 것들이 많다. 비교적 최신이라 할 수 있는게 Apple 실리콘의 아성에 밀려 밖에 가지고 나가기도 좀 창피한 2016년 맥북프로이니 말이다. 그런데 이것도 와이프가 일을 할 때 주로 쓰고 있는 상황이라서 내가 집에서 주력으로 쓰는 노트북은 와이프가 언제 샀는지 기억도 안나는 샌디브릿지 i3 노트북이다. 이마저도 이제 나이가 먹다보니 13인치의 작은 노트북은 눈을 많이 피로하게 되어서, 새로운 노트북을 사고 싶었다. 주 사용용도가 학습이고, 필요할 때만다 집에 있는 맥북에 접속하기 위한 용도이기 때문에 굳이 비싼 장비가 필요한 것은 아니었다. 여러 기기들을 둘러보다가 생각보다 비싼 가격에 포기해야 하나 생각하던 와중 17인치 모니터를 가진…">
+<link rel="canonical" href="/tech/2022/06/19/post-NodeJsTrainningSettings.html">
+<meta property="og:url" content="/tech/2022/06/19/post-NodeJsTrainningSettings.html">
+<meta property="og:site_name" content="Onion &amp; Star Blog">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2022-06-19T00:00:00+09:00">
+<meta property="article:modified_time" content="2022-06-19T00:00:00+09:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="크롬북에 학습환경을 구성하기 위한 분투기">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-06-19T00:00:00+09:00","datePublished":"2022-06-19T00:00:00+09:00","description":"나는 IT에 업을 두고 있긴 하지만, 사실 가지고 있는 IT기기는 좀 오래된 것들이 많다. 비교적 최신이라 할 수 있는게 Apple 실리콘의 아성에 밀려 밖에 가지고 나가기도 좀 창피한 2016년 맥북프로이니 말이다. 그런데 이것도 와이프가 일을 할 때 주로 쓰고 있는 상황이라서 내가 집에서 주력으로 쓰는 노트북은 와이프가 언제 샀는지 기억도 안나는 샌디브릿지 i3 노트북이다. 이마저도 이제 나이가 먹다보니 13인치의 작은 노트북은 눈을 많이 피로하게 되어서, 새로운 노트북을 사고 싶었다. 주 사용용도가 학습이고, 필요할 때만다 집에 있는 맥북에 접속하기 위한 용도이기 때문에 굳이 비싼 장비가 필요한 것은 아니었다. 여러 기기들을 둘러보다가 생각보다 비싼 가격에 포기해야 하나 생각하던 와중 17인치 모니터를 가진…","headline":"크롬북에 학습환경을 구성하기 위한 분투기","mainEntityOfPage":{"@type":"WebPage","@id":"/tech/2022/06/19/post-NodeJsTrainningSettings.html"},"url":"/tech/2022/06/19/post-NodeJsTrainningSettings.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Onion &amp; Star Blog">
+  </head>
+  <body>
+    <div class="site-container">
+      <header class="site-header">
+  <div class="header-inner">
+    <a class="site-brand" href="/"><img src="https://github.com/OnionStar0325.png?size=64" alt="Onion &amp; Star Blog" class="brand-avatar"><span>Onion &amp; Star Blog</span>
+    </a>
+
+    <nav class="site-nav">
+      <a class="nav-link " href="/">Home</a>
+      <a class="nav-link active" href="/tech/">Tech</a>
+      <a class="nav-link " href="/life/">Life</a>
+      <a class="nav-link " href="/about/">About</a><a class="nav-social" href="https://github.com/OnionStar0325" target="_blank" rel="noopener noreferrer" title="GitHub">
+        <svg height="20" width="20" viewbox="0 0 16 16" fill="currentColor">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+        </svg>
+      </a></nav>
+  </div>
+</header>
+
+
+      <main class="site-content" aria-label="Content">
+        <article class="post-article">
+  <header class="post-header"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+      <a href="/tech/" class="post-back-link">
+        ← Tech 목록으로
+      </a><span class="badge badge-tech">Tech</span>
+</div>
+
+    <h1 class="post-title">크롬북에 학습환경을 구성하기 위한 분투기</h1>
+
+    <div class="post-meta">
+      <time datetime="2022-06-19T00:00:00+09:00">
+        2022년 06월 19일
+      </time>
+</div>
+  </header>
+
+  <div class="post-content">
+    <p>나는 IT에 업을 두고 있긴 하지만, 사실 가지고 있는 IT기기는 좀 오래된 것들이 많다. 비교적 최신이라
+할 수 있는게 Apple 실리콘의 아성에 밀려 밖에 가지고 나가기도 좀 창피한 2016년 맥북프로이니 말이다. 그런데 이것도 와이프가 일을 할 때 주로 쓰고 있는 상황이라서 내가 집에서 주력으로 쓰는 노트북은 와이프가 언제 샀는지 기억도 안나는 샌디브릿지 i3 노트북이다. 이마저도 이제 나이가 먹다보니 13인치의 작은 노트북은 눈을 많이 피로하게 되어서, 새로운 노트북을 사고 싶었다.
+  주 사용용도가 학습이고, 필요할 때만다 집에 있는 맥북에 접속하기 위한 용도이기 때문에 굳이 비싼 장비가 필요한 것은 아니었다. 여러 기기들을 둘러보다가 생각보다 비싼 가격에 포기해야 하나 생각하던 와중 17인치 모니터를 가진 크롬북이 $149에 판매중인 정보를 발견하였다.
+  크롬북을 사용한 적이 없어서, 현명한 소비인지 고민이 되었지만, 아래의 장점을 고려하여 구매하게되었다.</p>
+
+<ul>
+  <li>17인치 모니터를 가진 휴대용 노트북’형’ 기기가 $149</li>
+  <li>구동되는 OS가 국내에서 잘 사용되지 않는 “크롬OS”이지만, 내장된 브라우저가 데스크톱 용 크롬이고, 비교적 쾌적하게 돌아감</li>
+  <li>크롬 OS내에서 리눅스 구동이 가능함 (IT 학습이 가능)</li>
+  <li>안드로이드 앱을 구동할 수 있음 (안드로이드 Jump Desktop을 사용하여 맥에 접속가능)</li>
+  <li>배터리가 오래감</li>
+</ul>
+
+<p>처음 기기를 받아보고 생각보다 괜찮은 만듦새에 “오 이거 사길 잘했는걸?” 싶었지만, 실 사용을 하면서, 장점으로 고려했던 부분이 내 생각과는 다소 차이가 있음을 발견하게 되었다.</p>
+<ul>
+  <li>크롬OS내부에 리눅스를 설치하면, 권장 할당용량이 10GB인데, 이게 크롬북에서는 생각보다 큰 비용이다. 내 크롬OS의 총 용량은 32GB이고, 추가로 SSD등을 장착하기도 힘들다.</li>
+  <li>리눅스에서 PODMAN을 구동할 수 없다.</li>
+  <li>리눅스가 아직 한글을 지원하지 않는다. (블로그를 작성할 수 없다)</li>
+  <li>플레이스토어에 Jump Desktop이 내려갔으며(더 이상 지원X), 안드로이드 앱 구동이 안정적이지 않다.</li>
+</ul>
+
+<p>하지만, 리눅스 환경이 PODMAN을 제외하고는 거의 모든 기능을 사용할 수 있고, 크롬OS 자체 동작속도는 쾌적했기 때문에 최대한 적응해 보기로 한다. (사실 해외구매라, 반품하기가 힘들었다…)</p>
+
+<ul>
+  <li>
+<del>Jump Desktop으로 Mac 접속 (포기)</del> <a href="/tech/2022/06/21/post-ConnectToMac.html">외부 환경에서 맥ssh 접속으로 대체</a>
+</li>
+  <li>블로그 작성환경 구성 (Jekyll)</li>
+  <li>리눅스에 한글입력 적용 (ttyd 적용)</li>
+</ul>
+
+<p>상세한 내용은 다음 포스트에…</p>
+
+  </div>
+
+  <nav class="post-navigation"><a class="post-nav-item" href="/life/2022/06/10/post-dodam-is-little-rascal.html">
+        <div class="post-nav-label">← 이전 글</div>
+        <div class="post-nav-title">도담이는...</div>
+      </a><a class="post-nav-item" style="text-align: right;" href="/tech/2022/06/21/post-ConnectToMac.html">
+        <div class="post-nav-label">다음 글 →</div>
+        <div class="post-nav-title">외부에 공개되어 있지 않은 Mac에 ssh 접속환경 만들기</div>
+      </a></nav>
+</article>
+
+      </main>
+
+      <footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <span>© 2026 Onion &amp; Star Blog. All rights reserved.</span>
+    </div>
+    <div class="footer-links">
+      <a href="/feed.xml">RSS Feed</a><a href="https://github.com/OnionStar0325" target="_blank" rel="noopener noreferrer">GitHub</a><a href="mailto:star@onionstar.co.kr">Contact</a>
+</div>
+  </div>
+</footer>
+
+    </div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Add copy button to code blocks
+  const codeBlocks = document.querySelectorAll('div.highlighter-rouge, pre.highlight, .post-content pre');
+
+  codeBlocks.forEach((block) => {
+    // Prevent duplicate buttons if pre is inside highlighter-rouge
+    if (block.tagName === 'PRE' && block.closest('div.highlighter-rouge')) {
+      return;
+    }
+
+    const pre = block.tagName === 'PRE' ? block : block.querySelector('pre');
+    if (!pre) return;
+
+    // Ensure parent is relatively positioned
+    block.style.position = 'relative';
+
+    const copyButton = document.createElement('button');
+    copyButton.className = 'copy-code-button';
+    copyButton.type = 'button';
+    copyButton.setAttribute('aria-label', '코드 복사');
+    copyButton.innerHTML = `
+      <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+      </svg>
+      <span>Copy</span>
+    `;
+
+    copyButton.addEventListener('click', async () => {
+      const code = pre.querySelector('code') || pre;
+      const text = code.innerText.replace(/\n$/, '');
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          // Fallback for older or non-https contexts
+          const textArea = document.createElement('textarea');
+          textArea.value = text;
+          textArea.style.position = 'fixed';
+          textArea.style.opacity = '0';
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+        }
+
+        copyButton.classList.add('copied');
+        copyButton.innerHTML = `
+          <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Copied!</span>
+        `;
+
+        setTimeout(() => {
+          copyButton.classList.remove('copied');
+          copyButton.innerHTML = `
+            <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>Copy</span>
+          `;
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy code: ', err);
+      }
+    });
+
+    block.appendChild(copyButton);
+  });
+});
+</script>
+
+  </body>
+</html>

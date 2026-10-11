@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.9.1 -->
+<title>PhotoPrism 셋업방법 (WSL2 + CloudFlare Tunnel + Nginx) | Onion &amp; Star Blog</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="PhotoPrism 셋업방법 (WSL2 + CloudFlare Tunnel + Nginx)">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="기술 아카이브와 소소한 일상을 기록하는 Onion &amp; Star의 블로그">
+<meta name="twitter:description" property="og:description" content="기술 아카이브와 소소한 일상을 기록하는 Onion &amp; Star의 블로그">
+<link rel="canonical" href="/tech/2025/02/15/post-photoprism.html">
+<meta property="og:url" content="/tech/2025/02/15/post-photoprism.html">
+<meta property="og:site_name" content="Onion &amp; Star Blog">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2025-02-15T00:00:00+09:00">
+<meta property="article:modified_time" content="2025-02-15T00:00:00+09:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PhotoPrism 셋업방법 (WSL2 + CloudFlare Tunnel + Nginx)">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2025-02-15T00:00:00+09:00","datePublished":"2025-02-15T00:00:00+09:00","description":"기술 아카이브와 소소한 일상을 기록하는 Onion \u0026amp; Star의 블로그","headline":"PhotoPrism 셋업방법 (WSL2 + CloudFlare Tunnel + Nginx)","mainEntityOfPage":{"@type":"WebPage","@id":"/tech/2025/02/15/post-photoprism.html"},"url":"/tech/2025/02/15/post-photoprism.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Onion &amp; Star Blog">
+  </head>
+  <body>
+    <div class="site-container">
+      <header class="site-header">
+  <div class="header-inner">
+    <a class="site-brand" href="/"><img src="https://github.com/OnionStar0325.png?size=64" alt="Onion &amp; Star Blog" class="brand-avatar"><span>Onion &amp; Star Blog</span>
+    </a>
+
+    <nav class="site-nav">
+      <a class="nav-link " href="/">Home</a>
+      <a class="nav-link active" href="/tech/">Tech</a>
+      <a class="nav-link " href="/life/">Life</a>
+      <a class="nav-link " href="/about/">About</a><a class="nav-social" href="https://github.com/OnionStar0325" target="_blank" rel="noopener noreferrer" title="GitHub">
+        <svg height="20" width="20" viewbox="0 0 16 16" fill="currentColor">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+        </svg>
+      </a></nav>
+  </div>
+</header>
+
+
+      <main class="site-content" aria-label="Content">
+        <article class="post-article">
+  <header class="post-header"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+      <a href="/tech/" class="post-back-link">
+        ← Tech 목록으로
+      </a><span class="badge badge-tech">Tech</span>
+</div>
+
+    <h1 class="post-title">PhotoPrism 셋업방법 (WSL2 + CloudFlare Tunnel + Nginx)</h1>
+
+    <div class="post-meta">
+      <time datetime="2025-02-15T00:00:00+09:00">
+        2025년 02월 15일
+      </time>
+</div>
+  </header>
+
+  <div class="post-content">
+    <hr>
+
+<h1 id="windows-sublinuxsystemwsl2-환경에서-podman-compose를-사용하여-photoprism을-구동하고-nginx를-reverse-proxy로-설정하여-외부에서-안전하게-접근할-수-있도록-구성하는-방법을-기록한다"><strong>Windows SubLinuxSystem(WSL2) 환경에서 Podman-Compose를 사용하여 PhotoPrism을 구동하고, Nginx를 Reverse Proxy로 설정하여 외부에서 안전하게 접근할 수 있도록 구성하는 방법을 기록한다.</strong></h1>
+
+<h2 id="사전-준비-사항"><strong>사전 준비 사항</strong></h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- Debian 12 버전이 설치된 WSL2 시스템
+- nginx
+- podman
+- podman-compose
+- DNS
+</code></pre></div></div>
+
+<blockquote>
+  <p>podman-compose는 Debian 12(Bookworm) 버전부터 패키지매니저에서 지원한다.</p>
+</blockquote>
+
+<h2 id="시스템-구성도"><strong>시스템 구성도</strong></h2>
+
+<p><img class="mermaid" src="https://mermaid.ink/svg/eyJjb2RlIjoiZ3JhcGggTFJcbkFb7IKs7Jqp7J6QIOybuSDruIzrnbzsmrDsoIBdIC0tPnxIVFRQUyBSZXF1ZXN0fCBCW0Nsb3VkZmxhcmUgVHVubmVsXVxuQiAtLT58TG9jYWwgUmVxdWVzdHwgQ1tOZ2lueCBSZXZlcnNlIFByb3h5XVxuQyAtLT58UHJveHkgdG8gQ29udGFpbmVyfCBEW1Bob3RvUHJpc20g7Luo7YWM7J2064SIXSIsIm1lcm1haWQiOnsidGhlbWUiOiJkZWZhdWx0In19"></p>
+
+<h2 id="구성-절차"><strong>구성 절차</strong></h2>
+
+<h3 id="photoprism-구성"><strong>PhotoPrism 구성</strong></h3>
+
+<ol>
+  <li>
+<strong>PhotoPrism Docker Compose 파일 다운로드</strong>:
+    <ul>
+      <li>PhotoPrism 공식 사이트에서 제공하는 구성 파일 다운로드:</li>
+    </ul>
+
+    <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> <span class="nb">mkdir</span> <span class="nt">-p</span> ~/apps/photoprism <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ~/apps/photoprism
+ wget https://dl.photoprism.app/podman/docker-compose.yml
+</code></pre></div>    </div>
+  </li>
+  <li>
+<strong>구성 파일 수정</strong>:
+    <ul>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">docker-compose.yml</code> 파일을 열어 필요한 설정 변경:</p>
+
+        <div class="language-yaml highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>  <span class="na">ports</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s2">"</span><span class="s">2342:2342"</span> <span class="c1"># HTTP 포트 설정</span>
+
+  <span class="na">environment</span><span class="pi">:</span>
+  <span class="na">PHOTOPRISM_ADMIN_PASSWORD</span><span class="pi">:</span> <span class="s2">"</span><span class="s">your_secure_password"</span> <span class="c1"># 관리자 비밀번호 설정</span>
+  <span class="na">PHOTOPRISM_ORIGINALS_LIMIT</span><span class="pi">:</span> <span class="m">50000</span> <span class="c1"># 원본 파일 크기 제한 (MB)</span>
+
+  <span class="na">volumes</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s2">"</span><span class="s">~/Pictures:/photoprism/originals"</span> <span class="c1"># 원본 사진 경로 연결</span>
+  <span class="pi">-</span> <span class="s2">"</span><span class="s">./storage:/photoprism/storage"</span> <span class="c1"># 캐시 및 데이터 저장소 경로 연결</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p>경로를 WSL 내 적절한 디렉토리로 변경한다.</p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<hr>
+
+<h3 id="photoprism-실행"><strong>PhotoPrism 실행</strong></h3>
+
+<ol>
+  <li>
+<strong>Podman-Compose로 컨테이너 실행</strong>:
+    <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> podman-compose up <span class="nt">-d</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+<strong>서비스 상태 확인</strong>:
+    <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> podman-compose ps
+</code></pre></div>    </div>
+  </li>
+  <li>
+<strong>브라우저에서 접속</strong>:
+    <ul>
+      <li>http://localhost:2342 에 접속하여 PhotoPrism 인터페이스를 확인한다.</li>
+    </ul>
+  </li>
+</ol>
+
+<hr>
+
+<h3 id="업데이트-및-유지보수"><strong>업데이트 및 유지보수</strong></h3>
+
+<ol>
+  <li>
+<strong>PhotoPrism 업데이트</strong>:
+    <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> podman-compose pull
+ podman-compose down <span class="o">&amp;&amp;</span> podman-compose up <span class="nt">-d</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+<strong>컨테이너 관리</strong>:
+    <ul>
+      <li>중지: <code class="language-plaintext highlighter-rouge">podman-compose down</code>
+</li>
+      <li>재시작: <code class="language-plaintext highlighter-rouge">podman-compose up -d</code>
+</li>
+    </ul>
+  </li>
+</ol>
+
+<hr>
+
+<h3 id="nginx를-사용한-reverse-proxy-설정"><strong>Nginx를 사용한 Reverse Proxy 설정</strong></h3>
+
+<p>PhotoPrism에 대한 Reverse Proxy 설정을 포함한 Nginx 구성 파일을 생성한다.</p>
+
+<ol>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">/etc/nginx/sites-available/photoprism</code> 파일 생성:</p>
+
+    <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> <span class="nb">sudo </span>nano /etc/nginx/sites-available/photoprism
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>설정 내용 작성</p>
+
+    <div class="language-nginx highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> <span class="k">server</span> <span class="p">{</span>
+     <span class="kn">listen</span> <span class="mi">3000</span> <span class="s">ssl</span><span class="p">;</span> <span class="c1"># Cloudflare 터널로 수신할 포트를 작성한다. http 형식으로 통신할 경우 ssl 키워드는 제거한다.</span>
+     <span class="kn">listen</span> <span class="s">[::]:3000</span> <span class="s">ssl</span><span class="p">;</span> <span class="c1"># Cloudflare 터널로 수신할 포트를 작성한다. http 형식으로 통신할 경우 ssl 키워드는 제거한다.</span>
+     <span class="kn">server_name</span> <span class="s">photos.mydomain.com</span><span class="p">;</span>
+     <span class="kn">client_max_body_size</span> <span class="mi">500M</span><span class="p">;</span>
+
+     <span class="c1"># 인증키 정보는 Cloudflare 터널과 https 로 통신할 경우 작성한다.</span>
+     <span class="kn">ssl_certificate</span> <span class="n">/etc/ssl/cert.pem</span><span class="p">;</span>
+     <span class="kn">ssl_certificate_key</span> <span class="n">/etc/ssl/key.pem</span><span class="p">;</span>
+     <span class="kn">ssl_client_certificate</span> <span class="n">/etc/ssl/cloudflare.crt</span><span class="p">;</span>
+
+     <span class="kn">location</span> <span class="n">/</span> <span class="p">{</span>
+         <span class="kn">proxy_set_header</span> <span class="s">X-Forwarded-For</span> <span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">Host</span> <span class="nv">$host</span><span class="p">;</span>
+
+         <span class="kn">proxy_pass</span> <span class="s">http://localhost:2342</span><span class="p">;</span>
+
+         <span class="kn">proxy_buffering</span> <span class="no">off</span><span class="p">;</span>
+         <span class="kn">proxy_http_version</span> <span class="mi">1</span><span class="s">.1</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">Upgrade</span> <span class="nv">$http_upgrade</span><span class="p">;</span>
+         <span class="kn">proxy_set_header</span> <span class="s">Connection</span> <span class="s">"upgrade"</span><span class="p">;</span>
+     <span class="p">}</span>
+ <span class="p">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>심볼릭 링크 생성:
+    <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> <span class="nb">sudo ln</span> <span class="nt">-s</span> /etc/nginx/sites-available/photoprism /etc/nginx/sites-enabled/
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Nginx 서비스 재시작</p>
+
+    <p>구성을 적용하기 위해 Nginx를 재시작</p>
+
+    <div class="language-bash highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code> <span class="nb">sudo </span>nginx <span class="nt">-t</span>  <span class="c"># 구성 파일 테스트</span>
+ <span class="nb">sudo </span>systemctl restart nginx
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<hr>
+
+<h3 id="cloudflare-tunnel-설정"><strong>Cloudflare tunnel 설정</strong></h3>
+
+<ol>
+  <li>Cloudflare tunnel을 생성/수정한다.
+    <div class="language-text highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>     Tunnel과 nginx가 http로 통신함. http://localhost:3000
+     Tunnel과 nginx가 https로 통신함. https://localhost:3000
+</code></pre></div>    </div>
+  </li>
+  <li>웹 브라우저로 DNS로 접속하여, 서비스 동작여부를 확인한다.</li>
+</ol>
+
+  </div>
+
+  <nav class="post-navigation"><a class="post-nav-item" href="/life/2022/09/01/post-dodam_has_been_arrived.html">
+        <div class="post-nav-label">← 이전 글</div>
+        <div class="post-nav-title">도담, 세상에 나오다</div>
+      </a><a class="post-nav-item" style="text-align: right;" href="/tech/2026/10/04/post-orca-headless-server-installation.html">
+        <div class="post-nav-label">다음 글 →</div>
+        <div class="post-nav-title">Orca ADE Headless Server 설치 및 설정 가이드</div>
+      </a></nav>
+</article>
+
+      </main>
+
+      <footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <span>© 2026 Onion &amp; Star Blog. All rights reserved.</span>
+    </div>
+    <div class="footer-links">
+      <a href="/feed.xml">RSS Feed</a><a href="https://github.com/OnionStar0325" target="_blank" rel="noopener noreferrer">GitHub</a><a href="mailto:star@onionstar.co.kr">Contact</a>
+</div>
+  </div>
+</footer>
+
+    </div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Add copy button to code blocks
+  const codeBlocks = document.querySelectorAll('div.highlighter-rouge, pre.highlight, .post-content pre');
+
+  codeBlocks.forEach((block) => {
+    // Prevent duplicate buttons if pre is inside highlighter-rouge
+    if (block.tagName === 'PRE' && block.closest('div.highlighter-rouge')) {
+      return;
+    }
+
+    const pre = block.tagName === 'PRE' ? block : block.querySelector('pre');
+    if (!pre) return;
+
+    // Ensure parent is relatively positioned
+    block.style.position = 'relative';
+
+    const copyButton = document.createElement('button');
+    copyButton.className = 'copy-code-button';
+    copyButton.type = 'button';
+    copyButton.setAttribute('aria-label', '코드 복사');
+    copyButton.innerHTML = `
+      <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+      </svg>
+      <span>Copy</span>
+    `;
+
+    copyButton.addEventListener('click', async () => {
+      const code = pre.querySelector('code') || pre;
+      const text = code.innerText.replace(/\n$/, '');
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          // Fallback for older or non-https contexts
+          const textArea = document.createElement('textarea');
+          textArea.value = text;
+          textArea.style.position = 'fixed';
+          textArea.style.opacity = '0';
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+        }
+
+        copyButton.classList.add('copied');
+        copyButton.innerHTML = `
+          <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Copied!</span>
+        `;
+
+        setTimeout(() => {
+          copyButton.classList.remove('copied');
+          copyButton.innerHTML = `
+            <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>Copy</span>
+          `;
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy code: ', err);
+      }
+    });
+
+    block.appendChild(copyButton);
+  });
+});
+</script>
+
+  </body>
+</html>

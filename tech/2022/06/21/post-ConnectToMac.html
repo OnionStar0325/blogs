@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.9.1 -->
+<title>외부에 공개되어 있지 않은 Mac에 ssh 접속환경 만들기 | Onion &amp; Star Blog</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="외부에 공개되어 있지 않은 Mac에 ssh 접속환경 만들기">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="크롬북을 구매하고 나서, 생각보다 쾌적한 사용성과 기능에 만족을 하였지만, 태생적인 하드웨어의 한계로 인하여, 크롬북은 단말기의 역할 그리고 Jekyll 기반의 블로그 작성에만 사용하기로 결정했다. (결정적인 계기는 크롬북에 RDBMS를 설치하기에는 무리라고 생각되어서이다) 그래서 출장등으로 밖에 나와 있을 때에는 집에 있는 맥북에 SSH로 접속하여, 필요한 작업을 하기로 결정을 했다. 평소대로라면, 맥에 ssh포트를 열어두고, 공유기에서 포트포워딩을 했을텐데 크롬북이라는 특수성과 집에서 사용하고 있는 공유기에서 하기의 문제가 발생하였다. 집에 사용하는 공유기는 아파트에 기본으로 설치되어 있는 공유기인데 해당 공유기에서 포트포워딩을 설정하여도 맥으로 신호가 전달되지 않음.(이유를 찾지 못함) 크롬북의 리눅스 시스템은 한글입력을 지원하지 않고, 안드로이드 터미널앱은 구동이 불안정함 맥북에는 Jump Desktop 서버가 구동중이지만, 안드로이드 클라이언트 앱은 지원이 중단됨.…">
+<meta name="twitter:description" property="og:description" content="크롬북을 구매하고 나서, 생각보다 쾌적한 사용성과 기능에 만족을 하였지만, 태생적인 하드웨어의 한계로 인하여, 크롬북은 단말기의 역할 그리고 Jekyll 기반의 블로그 작성에만 사용하기로 결정했다. (결정적인 계기는 크롬북에 RDBMS를 설치하기에는 무리라고 생각되어서이다) 그래서 출장등으로 밖에 나와 있을 때에는 집에 있는 맥북에 SSH로 접속하여, 필요한 작업을 하기로 결정을 했다. 평소대로라면, 맥에 ssh포트를 열어두고, 공유기에서 포트포워딩을 했을텐데 크롬북이라는 특수성과 집에서 사용하고 있는 공유기에서 하기의 문제가 발생하였다. 집에 사용하는 공유기는 아파트에 기본으로 설치되어 있는 공유기인데 해당 공유기에서 포트포워딩을 설정하여도 맥으로 신호가 전달되지 않음.(이유를 찾지 못함) 크롬북의 리눅스 시스템은 한글입력을 지원하지 않고, 안드로이드 터미널앱은 구동이 불안정함 맥북에는 Jump Desktop 서버가 구동중이지만, 안드로이드 클라이언트 앱은 지원이 중단됨.…">
+<link rel="canonical" href="/tech/2022/06/21/post-ConnectToMac.html">
+<meta property="og:url" content="/tech/2022/06/21/post-ConnectToMac.html">
+<meta property="og:site_name" content="Onion &amp; Star Blog">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2022-06-21T00:00:00+09:00">
+<meta property="article:modified_time" content="2022-06-21T00:00:00+09:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="외부에 공개되어 있지 않은 Mac에 ssh 접속환경 만들기">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2022-06-21T00:00:00+09:00","datePublished":"2022-06-21T00:00:00+09:00","description":"크롬북을 구매하고 나서, 생각보다 쾌적한 사용성과 기능에 만족을 하였지만, 태생적인 하드웨어의 한계로 인하여, 크롬북은 단말기의 역할 그리고 Jekyll 기반의 블로그 작성에만 사용하기로 결정했다. (결정적인 계기는 크롬북에 RDBMS를 설치하기에는 무리라고 생각되어서이다) 그래서 출장등으로 밖에 나와 있을 때에는 집에 있는 맥북에 SSH로 접속하여, 필요한 작업을 하기로 결정을 했다. 평소대로라면, 맥에 ssh포트를 열어두고, 공유기에서 포트포워딩을 했을텐데 크롬북이라는 특수성과 집에서 사용하고 있는 공유기에서 하기의 문제가 발생하였다. 집에 사용하는 공유기는 아파트에 기본으로 설치되어 있는 공유기인데 해당 공유기에서 포트포워딩을 설정하여도 맥으로 신호가 전달되지 않음.(이유를 찾지 못함) 크롬북의 리눅스 시스템은 한글입력을 지원하지 않고, 안드로이드 터미널앱은 구동이 불안정함 맥북에는 Jump Desktop 서버가 구동중이지만, 안드로이드 클라이언트 앱은 지원이 중단됨.…","headline":"외부에 공개되어 있지 않은 Mac에 ssh 접속환경 만들기","mainEntityOfPage":{"@type":"WebPage","@id":"/tech/2022/06/21/post-ConnectToMac.html"},"url":"/tech/2022/06/21/post-ConnectToMac.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Onion &amp; Star Blog">
+  </head>
+  <body>
+    <div class="site-container">
+      <header class="site-header">
+  <div class="header-inner">
+    <a class="site-brand" href="/"><img src="https://github.com/OnionStar0325.png?size=64" alt="Onion &amp; Star Blog" class="brand-avatar"><span>Onion &amp; Star Blog</span>
+    </a>
+
+    <nav class="site-nav">
+      <a class="nav-link " href="/">Home</a>
+      <a class="nav-link active" href="/tech/">Tech</a>
+      <a class="nav-link " href="/life/">Life</a>
+      <a class="nav-link " href="/about/">About</a><a class="nav-social" href="https://github.com/OnionStar0325" target="_blank" rel="noopener noreferrer" title="GitHub">
+        <svg height="20" width="20" viewbox="0 0 16 16" fill="currentColor">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+        </svg>
+      </a></nav>
+  </div>
+</header>
+
+
+      <main class="site-content" aria-label="Content">
+        <article class="post-article">
+  <header class="post-header"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+      <a href="/tech/" class="post-back-link">
+        ← Tech 목록으로
+      </a><span class="badge badge-tech">Tech</span>
+</div>
+
+    <h1 class="post-title">외부에 공개되어 있지 않은 Mac에 ssh 접속환경 만들기</h1>
+
+    <div class="post-meta">
+      <time datetime="2022-06-21T00:00:00+09:00">
+        2022년 06월 21일
+      </time>
+</div>
+  </header>
+
+  <div class="post-content">
+    <p>크롬북을 구매하고 나서, 생각보다 쾌적한 사용성과 기능에 만족을 하였지만, 태생적인 하드웨어의 한계로 인하여, 크롬북은 단말기의 역할 그리고 Jekyll 기반의 블로그 작성에만 사용하기로 결정했다. (결정적인 계기는 크롬북에 RDBMS를 설치하기에는 무리라고 생각되어서이다)
+  그래서 출장등으로 밖에 나와 있을 때에는 집에 있는 맥북에 SSH로 접속하여, 필요한 작업을 하기로 결정을 했다. 평소대로라면, 맥에 ssh포트를 열어두고, 공유기에서 포트포워딩을 했을텐데 크롬북이라는 특수성과 집에서 사용하고 있는 공유기에서 하기의 문제가 발생하였다.</p>
+<ul>
+  <li>집에 사용하는 공유기는 아파트에 기본으로 설치되어 있는 공유기인데 해당 공유기에서 포트포워딩을 설정하여도 맥으로 신호가 전달되지 않음.(이유를 찾지 못함)</li>
+  <li>크롬북의 리눅스 시스템은 한글입력을 지원하지 않고, 안드로이드 터미널앱은 구동이 불안정함</li>
+  <li>맥북에는 Jump Desktop 서버가 구동중이지만, 안드로이드 클라이언트 앱은 지원이 중단됨. 
+  위와 같은 문제를 해결하기 위해, Terminal을 웹 환경에서 사용할 수 있게하는 <a href="https://github.com/tsl0922/ttyd">ttyd</a>를 집 내부에 구동시켜 놓고, 집에서 구동중인 Nginx의 reverse proxy 기능을 활용하여 크롬북에서 웹을 통하여 Mac에 접속하는 환경을 구축하였다.</li>
+</ul>
+
+<h3 id="작업절차">작업절차</h3>
+<ul>
+  <li>Nginx에서 접속할 수 있고 Mac에 접속 가능한 PC에 ttyd설치(podman 이용)
+    <div class="language-text highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>podman run -d -p 7681:7681 --name ttyd \
+  docker.io/tsl0922/ttyd
+</code></pre></div>    </div>
+  </li>
+  <li>ttyd 컨테이너에 환경설정
+    <div class="language-text highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code># 컨테이너의 쉘 프롬프트 오픈
+podman exec -it ttyd sh
+</code></pre></div>    </div>
+    <div class="language-text highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code># ssh client 설치
+apt-get update
+apt-get install ssh-client  
+</code></pre></div>    </div>
+    <div class="language-text highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code># root의 .bashrc에 하기내용 추가. 마지막 exit는 container 제어권 획득을 막기 위함
+export LANG='ko_KR.UTF-8'
+export LC_ALL='ko_KR.UTF-8'
+ssh {mac account}@{mac 내부 IP 주소}
+exit
+</code></pre></div>    </div>
+  </li>
+  <li>nginx server configuration 설정
+    <div class="language-text highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>server {
+ ...
+
+  location /{address}/ {
+      proxy_pass   http://{ttyd container ip}:7681/$1;
+      proxy_set_header X-Forwarded-Proto $scheme;
+      proxy_set_header X-Forwarded-Port $server_port;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+  }
+</code></pre></div>    </div>
+  </li>
+  <li>nginx syntax 검사 및 설정 반영
+    <div class="language-text highlighter-rouge">
+<div class="highlight"><pre class="highlight"><code>nginx -t
+service nginx reload
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="test">Test</h3>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://{dns or ip address}/{ttyd url}
+</code></pre></div></div>
+<p><img src="https://cdn.onionstar.co.kr/tech/20220621-test_result.gif" alt="Test Image"></p>
+
+
+  </div>
+
+  <nav class="post-navigation"><a class="post-nav-item" href="/tech/2022/06/19/post-NodeJsTrainningSettings.html">
+        <div class="post-nav-label">← 이전 글</div>
+        <div class="post-nav-title">크롬북에 학습환경을 구성하기 위한 분투기</div>
+      </a><a class="post-nav-item" style="text-align: right;" href="/life/2022/07/10/post-HappyBirthday.html">
+        <div class="post-nav-label">다음 글 →</div>
+        <div class="post-nav-title">생일 축하 합니다~</div>
+      </a></nav>
+</article>
+
+      </main>
+
+      <footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <span>© 2026 Onion &amp; Star Blog. All rights reserved.</span>
+    </div>
+    <div class="footer-links">
+      <a href="/feed.xml">RSS Feed</a><a href="https://github.com/OnionStar0325" target="_blank" rel="noopener noreferrer">GitHub</a><a href="mailto:star@onionstar.co.kr">Contact</a>
+</div>
+  </div>
+</footer>
+
+    </div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Add copy button to code blocks
+  const codeBlocks = document.querySelectorAll('div.highlighter-rouge, pre.highlight, .post-content pre');
+
+  codeBlocks.forEach((block) => {
+    // Prevent duplicate buttons if pre is inside highlighter-rouge
+    if (block.tagName === 'PRE' && block.closest('div.highlighter-rouge')) {
+      return;
+    }
+
+    const pre = block.tagName === 'PRE' ? block : block.querySelector('pre');
+    if (!pre) return;
+
+    // Ensure parent is relatively positioned
+    block.style.position = 'relative';
+
+    const copyButton = document.createElement('button');
+    copyButton.className = 'copy-code-button';
+    copyButton.type = 'button';
+    copyButton.setAttribute('aria-label', '코드 복사');
+    copyButton.innerHTML = `
+      <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+      </svg>
+      <span>Copy</span>
+    `;
+
+    copyButton.addEventListener('click', async () => {
+      const code = pre.querySelector('code') || pre;
+      const text = code.innerText.replace(/\n$/, '');
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          // Fallback for older or non-https contexts
+          const textArea = document.createElement('textarea');
+          textArea.value = text;
+          textArea.style.position = 'fixed';
+          textArea.style.opacity = '0';
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+        }
+
+        copyButton.classList.add('copied');
+        copyButton.innerHTML = `
+          <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Copied!</span>
+        `;
+
+        setTimeout(() => {
+          copyButton.classList.remove('copied');
+          copyButton.innerHTML = `
+            <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>Copy</span>
+          `;
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy code: ', err);
+      }
+    });
+
+    block.appendChild(copyButton);
+  });
+});
+</script>
+
+  </body>
+</html>
