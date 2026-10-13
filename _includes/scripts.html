@@ -74,3 +74,70 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
+
+<script src="{{ '/assets/js/pikchr.js' | relative_url }}"></script>
+<script>
+// Client-side Pikchr WASM rendering and toggle interaction
+document.addEventListener('DOMContentLoaded', async () => {
+  const codeBlocks = Array.from(document.querySelectorAll('pre > code.language-pikchr, pre > code.pikchr-raw-src'));
+  if (codeBlocks.length === 0) return;
+
+  if (typeof window.loadPikchr !== 'function') {
+    console.error('loadPikchr function is not available.');
+    return;
+  }
+
+  try {
+    const pikchr = await window.loadPikchr();
+
+    codeBlocks.forEach((codeEl) => {
+      const preEl = codeEl.closest('pre');
+      if (!preEl) return;
+
+      const srcText = codeEl.textContent.trim();
+      if (!srcText) return;
+
+      const result = pikchr.render(srcText, 'pikchr', 0);
+      if (!result || !result.svg) {
+        console.warn('Pikchr render produced no output for block');
+        return;
+      }
+
+      // Create wrapper matching pikchr.org toggle layout
+      const wrapper = document.createElement('div');
+      wrapper.className = 'pikchr-wrapper toggle';
+      wrapper.title = '클릭하여 소스 코드 보기';
+
+      const widthStyle = result.width ? ` style="max-width:${Math.round(result.width)}px;"` : '';
+
+      wrapper.innerHTML = `
+        <div class="pikchr-svg"${widthStyle}>${result.svg}</div>
+        <div class="pikchr-src">
+          <pre><code class="pikchr-raw-src"></code></pre>
+        </div>
+      `;
+
+      // Safely assign text content to prevent XSS
+      wrapper.querySelector('code.pikchr-raw-src').textContent = srcText;
+
+      // Replace original pre block with the pikchr-wrapper
+      preEl.parentNode.replaceChild(wrapper, preEl);
+
+      const svgPane = wrapper.querySelector('.pikchr-svg');
+      const srcPane = wrapper.querySelector('.pikchr-src');
+
+      const toggle = (e) => {
+        if (e && e.target && e.target.closest('.copy-code-button')) {
+          return;
+        }
+        wrapper.classList.toggle('pikchr-show-src');
+      };
+
+      svgPane.addEventListener('click', toggle);
+      srcPane.addEventListener('click', toggle);
+    });
+  } catch (err) {
+    console.error('Failed to initialize Pikchr WASM:', err);
+  }
+});
+</script>
