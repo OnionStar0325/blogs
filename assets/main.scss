@@ -707,3 +707,117 @@ div[class*="language-"] {
   display: flex;
   gap: 1rem;
 }
+
+/* ============================================================
+   Pikchr toggle: SVG preview ↔ source code (pikchr.org style)
+   ============================================================ */
+
+/* Wrapper: default shows SVG, hides source */
+.pikchr-wrapper {
+  position: relative;
+  margin: 1.5rem 0;
+}
+
+/* Toggle badge hint */
+.pikchr-wrapper.toggle::after {
+  content: "< 소스 보기";
+  position: absolute;
+  top: 0.5rem;
+  right: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.85);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.1rem 0.45rem;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  backdrop-filter: blur(4px);
+}
+
+.pikchr-wrapper.toggle:hover::after {
+  opacity: 1;
+}
+
+/* When showing source, badge changes */
+.pikchr-wrapper.toggle.pikchr-show-src::after {
+  content: "< SVG 보기";
+}
+
+/* SVG container */
+.pikchr-svg {
+  cursor: pointer;
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  background: var(--bg-primary);
+  overflow-x: auto;
+  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.pikchr-wrapper.toggle:hover .pikchr-svg {
+  border-color: var(--border-hover);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.pikchr-svg svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Source pane: hidden by default */
+.pikchr-src {
+  display: none;
+  cursor: pointer;
+}
+
+/* Source pane <pre> inherits dark code block style */
+.pikchr-src pre {
+  margin: 0 !important;
+  background-color: var(--code-bg);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  overflow-x: auto;
+  border: 1px solid #1e293b;
+}
+
+/* pikchr-raw-src is the class used for the Pikchr source code inside the pane */
+.pikchr-src pre code.pikchr-raw-src {
+  font-family: var(--font-mono);
+  background: transparent;
+  color: var(--code-text);
+  padding: 0;
+  border: none;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+
+/* Toggle state: show source, hide SVG */
+.pikchr-wrapper.toggle.pikchr-show-src .pikchr-svg {
+  display: none;
+}
+
+.pikchr-wrapper.toggle.pikchr-show-src .pikchr-src {
+  display: block;
+}
+
+/* Error state */
+.pikchr-error .pikchr-err-msg {
+  font-size: 0.85rem;
+  color: #dc2626;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+  margin-top: 0.5rem;
+}
