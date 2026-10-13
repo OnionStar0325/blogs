@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       wrapper.innerHTML = `
         <div class="pikchr-svg"${widthStyle}>${result.svg}</div>
-        <div class="pikchr-src">
+        <div class="pikchr-src" style="display:none;cursor:pointer;">
           <pre><code class="pikchr-raw-src"></code></pre>
         </div>
       `;
@@ -130,7 +130,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (e && e.target && e.target.closest('.copy-code-button')) {
           return;
         }
-        wrapper.classList.toggle('pikchr-show-src');
+        const isSrcVisible = srcPane.style.display !== 'none';
+        if (isSrcVisible) {
+          srcPane.style.display = 'none';
+          svgPane.style.display = 'block';
+          wrapper.classList.remove('pikchr-show-src');
+        } else {
+          svgPane.style.display = 'none';
+          srcPane.style.display = 'block';
+          wrapper.classList.add('pikchr-show-src');
+        }
       };
 
       svgPane.addEventListener('click', toggle);
