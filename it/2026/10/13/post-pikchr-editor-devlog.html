@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Begin Jekyll SEO tag v2.9.1 -->
+<title>[개발일지] Pikchr Editor 개발기 - Antigravity CLI 바이브 코딩을 통한 비주얼 에디터 구현 과정 | Onion &amp; Star Blog</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="[개발일지] Pikchr Editor 개발기 - Antigravity CLI 바이브 코딩을 통한 비주얼 에디터 구현 과정">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="[개발일지] Pikchr Editor 개발기: Antigravity CLI 바이브 코딩을 통한 비주얼 에디터 구현 과정">
+<meta name="twitter:description" property="og:description" content="[개발일지] Pikchr Editor 개발기: Antigravity CLI 바이브 코딩을 통한 비주얼 에디터 구현 과정">
+<link rel="canonical" href="/it/2026/10/13/post-pikchr-editor-devlog.html">
+<meta property="og:url" content="/it/2026/10/13/post-pikchr-editor-devlog.html">
+<meta property="og:site_name" content="Onion &amp; Star Blog">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-10-13T00:00:00+09:00">
+<meta property="article:modified_time" content="2026-10-13T00:00:00+09:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[개발일지] Pikchr Editor 개발기 - Antigravity CLI 바이브 코딩을 통한 비주얼 에디터 구현 과정">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2026-10-13T00:00:00+09:00","datePublished":"2026-10-13T00:00:00+09:00","description":"[개발일지] Pikchr Editor 개발기: Antigravity CLI 바이브 코딩을 통한 비주얼 에디터 구현 과정","headline":"[개발일지] Pikchr Editor 개발기 - Antigravity CLI 바이브 코딩을 통한 비주얼 에디터 구현 과정","mainEntityOfPage":{"@type":"WebPage","@id":"/it/2026/10/13/post-pikchr-editor-devlog.html"},"url":"/it/2026/10/13/post-pikchr-editor-devlog.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css?v=1792272194">
+<link type="application/atom+xml" rel="alternate" href="/feed.xml" title="Onion &amp; Star Blog">
+  </head>
+  <body>
+    <div class="site-container">
+      <header class="site-header">
+  <div class="header-inner">
+    <a class="site-brand" href="/"><img src="https://github.com/OnionStar0325.png?size=64" alt="Onion &amp; Star Blog" class="brand-avatar"><span>Onion &amp; Star Blog</span>
+    </a>
+
+    <nav class="site-nav">
+      <a class="nav-link " href="/">Home</a>
+      <a class="nav-link " href="/tech/">Tech</a>
+      <a class="nav-link " href="/life/">Life</a>
+      <a class="nav-link " href="/about/">About</a><a class="nav-social" href="https://github.com/OnionStar0325" target="_blank" rel="noopener noreferrer" title="GitHub">
+        <svg height="20" width="20" viewbox="0 0 16 16" fill="currentColor">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+        </svg>
+      </a></nav>
+  </div>
+</header>
+
+
+      <main class="site-content" aria-label="Content">
+        <article class="post-article">
+  <header class="post-header"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+      <a href="/" class="post-back-link">
+        ← 전체 목록으로
+      </a><span class="badge badge-tech">IT</span>
+</div>
+
+    <h1 class="post-title">[개발일지] Pikchr Editor 개발기 - Antigravity CLI 바이브 코딩을 통한 비주얼 에디터 구현 과정</h1>
+
+    <div class="post-meta">
+      <time datetime="2026-10-13T00:00:00+09:00">
+        2026년 10월 13일
+      </time>
+</div>
+  </header>
+
+  <div class="post-content">
+    <h1 id="개발일지-pikchr-editor-개발기-antigravity-cli-바이브-코딩을-통한-비주얼-에디터-구현-과정">[개발일지] Pikchr Editor 개발기: Antigravity CLI 바이브 코딩을 통한 비주얼 에디터 구현 과정</h1>
+
+<p>기술 문서나 아키텍처 다이어그램을 다룰 때 텍스트 기반 다이어그램 도구는 버전 관리와 문서 임베딩 측면에서 유용합니다. 그중 <a href="https://pikchr.org">Pikchr</a>는 C 기반으로 작성되어 간결한 문법으로 SVG 결과물을 생성하는 마크업 언어입니다.</p>
+
+<p>다만 Pikchr 스크립트를 작성하다 보면 다음과 같은 불편이 있습니다:</p>
+
+<ol>
+  <li>
+<strong>문장 식별의 어려움</strong>: 렌더링된 캔버스의 특정 요소가 코드의 어느 문장에 해당하는지 한눈에 파악하기 어렵습니다.</li>
+  <li>
+<strong>문법 체득의 어려움</strong>: 도형 뒤에 사용 가능한 속성 키워드나 앵커 표기법, 상대 위치 표현 등을 매번 레퍼런스에서 확인해야 합니다.</li>
+</ol>
+
+<p>다이어그램이 복잡해질수록 렌더링된 SVG와 텍스트 코드 사이를 대조하는 데 시간이 많이 소요됩니다.</p>
+
+<p>이러한 문제를 줄이기 위해 Pikchr 문법 작성을 보조하고 문장 식별을 돕는 웹 기반 도구인 <a href="https://github.com/OnionStar0325/pikchr-editor">Pikchr Editor</a>를 제작했습니다.</p>
+
+<p>이 프로젝트는 소스 코드를 직접 한 줄씩 작성하지 않고, Antigravity CLI를 활용하여 대화형 프롬프트와 피드백을 통해 기능을 구현하는 바이브 코딩(Vibe Coding) 방식으로 진행되었습니다. 기획 및 요구사항 정의, 실사용 테스트를 통한 문제점 식별, 그리고 AI 에이전트를 통한 수정 및 검증 과정을 정리했습니다.</p>
+
+<hr>
+
+<h2 id="작업-흐름-사용자와-ai-에이전트의-역할-분담">작업 흐름: 사용자와 AI 에이전트의 역할 분담</h2>
+
+<p>프로젝트 진행 시 구현 작업은 AI 에이전트에 위임하고, 구조 설계 및 기능 검증은 사용자가 직접 수행하는 형태로 역할을 나누었습니다.</p>
+
+<pre><code class="language-pikchr">down
+A: box "1. 요구사항 정의 및 설계 요청" "(사용자)" fit
+arrow
+B: box "2. 시스템 아키텍처 및 설계 문서 작성" "(Antigravity CLI)" fit
+arrow
+C: box "3. 프로토타입 구현 및 실행 환경 구성" "(AI)" fit
+arrow
+D: box "4. 브라우저 실사용 테스트" "(사용자)" fit
+arrow
+E: diamond "5. 문제점 및 수정 사항 확인" fit
+arrow from E.s down 0.4 "정상 동작" ljust
+G: box "7. 테스트 케이스 작성 및 Git 커밋" "(AI 검증 및 정리)" fit
+
+F: box "6. 구체적인 동작 방식 및 방향 제시" "(사용자 피드백)" fit with .w at (E.e.x + 0.6, (C.y + E.y)/2)
+arrow from E.e right until even with F then to F.s "발견 시" above
+arrow from F.n up until even with C then to C.e
+</code></pre>
+
+<hr>
+
+<h2 id="1-초기-기획-및-아키텍처-설계">1. 초기 기획 및 아키텍처 설계</h2>
+
+<p>초기 단계에서는 바로 코드 구현에 들어가지 않고, 화면 구조와 동작 요구사항을 정의한 후 설계 문서를 먼저 작성하도록 요청했습니다.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>입력 프롬프트 흐름:
+"pikchr 코드를 생성할 수 있는 웹 UI를 설계해줘.
+좌측 사이드바: 오브젝트를 선택할 수 있는 팔레트 및 정의 영역
+우측 사이드바: 추가된 오브젝트 리스트 및 속성 편집기
+센터스테이지: pikchr이 실시간 렌더링된 화면 (마우스 조작 및 상호작용)
+하단 바: pikchr 코드 에디터
+우측 사이드바를 선택하면 해당 오브젝트를 센터스테이지와 하단 코드 블럭에 하이라이트해야 해.
+구문에 이상이 없을 때는 바로 렌더링하고 문제가 있다면 원인을 알려줘야 해.
+먼저 설계부터 진행할거니까 개발까지 수행하지 마."
+</code></pre></div></div>
+
+<p>이 요청에 따라 Antigravity CLI는 기본 설계 문서와 디렉터리 구조, 다국어(i18n) 체계를 구성했습니다.</p>
+
+<p>설계 내용 확인 후 구현을 진행했으며, React, TypeScript, Tailwind CSS 기반의 프로젝트 구성과 WebAssembly 컴파일러(<code class="language-plaintext highlighter-rouge">pikchr-js</code>) 연동이 이루어졌습니다.</p>
+
+<pre><code class="language-pikchr">down
+A: box "코드 에디터 / Textarea" fit
+arrow "스캔 및 토큰화" ljust
+B: box "Statement Detector" fit
+arrow "문장 단위 분리" ljust
+C: box "Pikchr WASM Compiler" fit
+arrow "SVG 생성" ljust
+D: box "SVG Tagger" fit
+arrow "data-stmt-id 주입" ljust
+E: box "Interactive SVG Canvas" fit
+
+F: box "오브젝트 목록 및 속성 패널" fit with .w at (B.e.x + 1.2, B.y)
+arrow from B.e to F.w "AST 정보" above
+
+G: box "선택 및 하이라이트 처리" fit with .w at (E.e.x + 1.2, E.y)
+
+arrow dashed from E.e to G.w "캔버스 요소 클릭" above
+arrow dashed from G.n to F.s "트리 노드 선택" rjust
+arrow dashed from F.n up until even with A then to A.e "속성 값 변경" above
+arrow dashed from G.w left 0.4 then up until even with 0.5 &lt;A.s, B.n&gt; then to A.se "오버레이 하이라이트" above
+</code></pre>
+
+<hr>
+
+<h2 id="2-주요-문제-해결-과정">2. 주요 문제 해결 과정</h2>
+
+<p>브라우저에서 직접 기능을 실행해 보며 확인된 주요 문제점들과 이를 수정한 과정은 다음과 같습니다.</p>
+
+<h3 id="1-캔버스와-코드-매핑-문장statement-탐지">1) 캔버스와 코드 매핑: 문장(Statement) 탐지</h3>
+
+<p>Pikchr 문법은 다음과 같은 특징이 있습니다:</p>
+<ul>
+  <li>세미콜론(<code class="language-plaintext highlighter-rouge">;</code>)으로 문장 구분</li>
+  <li>개행(<code class="language-plaintext highlighter-rouge">\n</code>)으로도 문장이 끝나지만, 역슬래시(<code class="language-plaintext highlighter-rouge">\</code>)로 이어지는 연속행은 제외</li>
+  <li>한 줄에 여러 문장이 작성되는 인라인 형태(<code class="language-plaintext highlighter-rouge">box; box; box;</code>) 가능</li>
+</ul>
+
+<p>초기 정규식 기반 처리로는 인라인 세미콜론이나 연속행, 주석 내부의 문자가 정확히 구분되지 않는 문제가 있었습니다.</p>
+
+<blockquote>
+  <p><strong>제공 피드백:</strong><br>
+<code class="language-plaintext highlighter-rouge">"Nested blocks 예제에서 N3: box wid .4 "n3"; D3: box wid .3 "d3" 처럼 ';'으로 문장이 끝나는데 식별이 제대로 안 돼. 원인을 찾아 개선해 줘."</code></p>
+</blockquote>
+
+<p>이를 해결하기 위해 문자 단위로 상태를 추적하는 스캐너를 작성하도록 했습니다.</p>
+<ul>
+  <li>각 문장의 절대 문자 범위(<code class="language-plaintext highlighter-rouge">startChar</code>, <code class="language-plaintext highlighter-rouge">endChar</code>, <code class="language-plaintext highlighter-rouge">startLine</code>, <code class="language-plaintext highlighter-rouge">endLine</code>)를 계산하고 고유 ID를 부여</li>
+  <li>렌더링된 SVG 엘리먼트에 <code class="language-plaintext highlighter-rouge">data-stmt-id</code> 속성을 주입하여 캔버스 요소와 코드 문장을 연결</li>
+</ul>
+
+<hr>
+
+<h3 id="2-텍스트-삭제-현상과-시각적-하이라이트-오버레이-적용">2) 텍스트 삭제 현상과 시각적 하이라이트 오버레이 적용</h3>
+
+<p>초기에는 캔버스에서 요소를 선택했을 때 에디터의 기본 선택 기능(<code class="language-plaintext highlighter-rouge">setSelectionRange</code>)을 사용해 해당 코드를 드래그 선택 상태로 만들었습니다.</p>
+
+<p>이 방식에서는 요소를 선택한 상태로 키를 입력할 경우 선택된 문장 전체가 지워지는 문제가 발생했습니다.</p>
+
+<blockquote>
+  <p><strong>사용자 피드백:</strong><br>
+<code class="language-plaintext highlighter-rouge">"소스 블럭을 선택할 때 셀렉션은 안해도 되고 선택된 영역을 하이라이트 하기만 하면 돼. 값을 입력할 때 문장 자체가 삭제되는 현상이 있으니까 개선해 줘."</code></p>
+</blockquote>
+
+<p>텍스트 선택 범위를 직접 변경하는 대신, Textarea 배경 레이어에 위치를 계산해 시각적 하이라이트만 표시하는 오버레이 컴포넌트로 구조를 변경했습니다. 이를 통해 텍스트 입력 상태를 유지하면서 선택된 문장의 위치를 표시할 수 있게 되었습니다.</p>
+
+<hr>
+
+<h3 id="3-키워드-자동완성autocomplete-구현-및-테스트-코드-작성">3) 키워드 자동완성(Autocomplete) 구현 및 테스트 코드 작성</h3>
+
+<p>Pikchr의 다양한 수식어와 앵커 문법 입력을 보조하기 위해 자동완성 기능 설계를 요청했습니다.</p>
+
+<blockquote>
+  <p><strong>사용자 피드백:</strong><br>
+<code class="language-plaintext highlighter-rouge">"pikchr 문법을 참고해서 code view에 키워드 입력에 따른 자동완성 제시 기능을 적용하고 싶어. 설계 문서를 생성해 줘."</code><br>
+<em>(설계 확인 후)</em><br>
+<code class="language-plaintext highlighter-rouge">"계획대로 구현해 줘."</code><br>
+<em>(구현 완료 후)</em><br>
+<code class="language-plaintext highlighter-rouge">"지금 구현한 기능을 테스트 코드를 생성해서 모든 기능을 검증해 줘."</code></p>
+</blockquote>
+
+<p>문맥 분석기와 추천 엔진을 구현하고, Vitest 기반의 단위 및 통합 테스트 53개를 생성하여 동작을 검증했습니다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>✓ tests/statementDetector.test.ts <span class="o">(</span>11 tests<span class="o">)</span>
+✓ tests/contextAnalyzer.test.ts <span class="o">(</span>9 tests<span class="o">)</span>
+✓ tests/completionEngine.test.ts <span class="o">(</span>12 tests<span class="o">)</span>
+✓ tests/statementHighlight.test.ts <span class="o">(</span>7 tests<span class="o">)</span>
+✓ tests/uiResponsive.test.ts <span class="o">(</span>14 tests<span class="o">)</span>
+
+Test Files  5 passed <span class="o">(</span>5<span class="o">)</span>
+     Tests  53 passed <span class="o">(</span>53<span class="o">)</span>
+</code></pre></div></div>
+
+<hr>
+
+<h3 id="4-실사용-테스트를-통한-uiux-개선">4) 실사용 테스트를 통한 UI/UX 개선</h3>
+
+<p>직접 에디터를 다루며 발견된 동작 오류와 개선 사항을 정리하여 순차적으로 수정을 요청했습니다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">상황</th>
+      <th style="text-align: left">피드백 내용</th>
+      <th style="text-align: left">처리 방식</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left"><strong>자동완성 목록 잘림</strong></td>
+      <td style="text-align: left"><em>“자동완성 컨텍스트 박스가 브라우저 영역을 벗어나서 보이지 않을 때가 있어. 로케이션 설정 기능을 개선해 줘.”</em></td>
+      <td style="text-align: left">뷰포트 하단 경계 감지 시 팝오버를 상단으로 전환하는 로직 적용</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>속성 편집 시 키워드 누락</strong></td>
+      <td style="text-align: left"><em>“<code class="language-plaintext highlighter-rouge">box same 'Parser'</code>를 속성 창에서 수정하면 <code class="language-plaintext highlighter-rouge">same</code> 키워드가 삭제돼. 속성에서 지원하지 않는 키워드를 삭제하는 버그를 수정해 줘.”</em></td>
+      <td style="text-align: left">속성 외의 기존 수식어를 유지하도록 정규식 파서 개선</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>모바일 키보드 스크롤</strong></td>
+      <td style="text-align: left"><em>“모바일 UI에서 코드 블럭의 끝까지 스크롤할 수가 없어. 개선해 줘.”</em></td>
+      <td style="text-align: left">키 입력 시 커서 위치로 뷰포트를 자동 스크롤하도록 수정</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>렌더링 반영 시점</strong></td>
+      <td style="text-align: left"><em>“코드가 변경되고 렌더링되기 전이면 ‘문법 검증 완료’ 텍스트를 ‘수정됨’으로 변경하고 클릭 시 바로 렌더링해줘.”</em></td>
+      <td style="text-align: left">디바운스 대기 중 클릭 시 즉시 렌더링되는 상태 버튼 추가</td>
+    </tr>
+    <tr>
+      <td style="text-align: left"><strong>패널 크기 조절</strong></td>
+      <td style="text-align: left"><em>“사이드바와 하단 바의 영역을 사용자가 조절할 수 있도록 개선해 줘.”</em></td>
+      <td style="text-align: left">드래그 조절 패널 및 <code class="language-plaintext highlighter-rouge">localStorage</code> 크기 저장 기능 추가</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>코드 수정 외에도 Git 커밋 및 푸시 작업 역시 프롬프트를 통해 요청하여 정리했습니다.</p>
+
+<hr>
+
+<h2 id="3-정리">3. 정리</h2>
+
+<p>이번 작업 과정에서 확인된 바이브 코딩 방식의 특징은 다음과 같습니다:</p>
+
+<ol>
+  <li>
+<strong>설계 정의의 필요성</strong>: 무작정 구현을 시작하기보다 전체 인터페이스 구조와 처리 흐름을 사전에 정리해 두는 것이 수정 비용을 줄이는 데 도움이 되었습니다.</li>
+  <li>
+<strong>구체적인 피드백의 중요성</strong>: 단순 오류 보고보다는 현상과 원하는 동작 방식(예: ‘선택’ 대신 ‘하이라이트’만 적용)을 명확히 전달할 때 의도에 맞는 결과물을 얻을 수 있었습니다.</li>
+  <li>
+<strong>지속적인 실사용 검증</strong>: 생성된 코드가 정상적으로 빌드되더라도 실제 사용자 인터랙션에서 예외 상황이 발생할 수 있으므로, 직접 사용하며 확인하는 과정이 필수적이었습니다.</li>
+</ol>
+
+<ul>
+  <li>
+<strong>저장소</strong>: <a href="https://github.com/OnionStar0325/pikchr-editor">https://github.com/OnionStar0325/pikchr-editor</a>
+</li>
+  <li>
+<strong>사용 도구</strong>: Antigravity CLI</li>
+  <li>
+<strong>라이선스</strong>: MIT License</li>
+</ul>
+
+  </div>
+
+  <nav class="post-navigation"><a class="post-nav-item" href="/tech/2026/10/04/post-orca-headless-server-installation.html">
+        <div class="post-nav-label">← 이전 글</div>
+        <div class="post-nav-title">Orca ADE Headless Server 설치 및 설정 가이드</div>
+      </a><a class="post-nav-item" style="text-align: right;" href="/it/2026/10/13/post-pikchr-editor-intro.html">
+        <div class="post-nav-label">다음 글 →</div>
+        <div class="post-nav-title">Pikchr Editor 소개 - Pikchr 다이어그램 작성을 돕...</div>
+      </a></nav>
+</article>
+
+      </main>
+
+      <footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <span>© 2026 Onion &amp; Star Blog. All rights reserved.</span>
+    </div>
+    <div class="footer-links">
+      <a href="/feed.xml">RSS Feed</a><a href="https://github.com/OnionStar0325" target="_blank" rel="noopener noreferrer">GitHub</a><a href="mailto:star@onionstar.co.kr">Contact</a>
+</div>
+  </div>
+</footer>
+
+    </div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Add copy button to code blocks
+  const codeBlocks = document.querySelectorAll('div.highlighter-rouge, pre.highlight, .post-content pre');
+
+  codeBlocks.forEach((block) => {
+    // Prevent duplicate buttons if pre is inside highlighter-rouge
+    if (block.tagName === 'PRE' && block.closest('div.highlighter-rouge')) {
+      return;
+    }
+
+    const pre = block.tagName === 'PRE' ? block : block.querySelector('pre');
+    if (!pre) return;
+
+    // Ensure parent is relatively positioned
+    block.style.position = 'relative';
+
+    const copyButton = document.createElement('button');
+    copyButton.className = 'copy-code-button';
+    copyButton.type = 'button';
+    copyButton.setAttribute('aria-label', '코드 복사');
+    copyButton.innerHTML = `
+      <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+      </svg>
+      <span>Copy</span>
+    `;
+
+    copyButton.addEventListener('click', async () => {
+      const code = pre.querySelector('code') || pre;
+      const text = code.innerText.replace(/\n$/, '');
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          // Fallback for older or non-https contexts
+          const textArea = document.createElement('textarea');
+          textArea.value = text;
+          textArea.style.position = 'fixed';
+          textArea.style.opacity = '0';
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+        }
+
+        copyButton.classList.add('copied');
+        copyButton.innerHTML = `
+          <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Copied!</span>
+        `;
+
+        setTimeout(() => {
+          copyButton.classList.remove('copied');
+          copyButton.innerHTML = `
+            <svg class="copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span>Copy</span>
+          `;
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy code: ', err);
+      }
+    });
+
+    block.appendChild(copyButton);
+  });
+});
+</script>
+
+<script src="/assets/js/pikchr.js"></script>
+<script>
+// Client-side Pikchr WASM rendering and toggle interaction
+document.addEventListener('DOMContentLoaded', async () => {
+  const codeBlocks = Array.from(document.querySelectorAll('pre > code.language-pikchr, pre > code.pikchr-raw-src'));
+  if (codeBlocks.length === 0) return;
+
+  if (typeof window.loadPikchr !== 'function') {
+    console.error('loadPikchr function is not available.');
+    return;
+  }
+
+  try {
+    const pikchr = await window.loadPikchr();
+
+    codeBlocks.forEach((codeEl) => {
+      const preEl = codeEl.closest('pre');
+      if (!preEl) return;
+
+      const srcText = codeEl.textContent.trim();
+      if (!srcText) return;
+
+      const result = pikchr.render(srcText, 'pikchr', 0);
+      if (!result || !result.svg) {
+        console.warn('Pikchr render produced no output for block');
+        return;
+      }
+
+      // Create wrapper matching pikchr.org toggle layout
+      const wrapper = document.createElement('div');
+      wrapper.className = 'pikchr-wrapper toggle';
+      wrapper.title = '클릭하여 소스 코드 보기';
+
+      const widthStyle = result.width ? ` style="max-width:${Math.round(result.width)}px;"` : '';
+
+      wrapper.innerHTML = `
+        <div class="pikchr-svg"${widthStyle}>${result.svg}</div>
+        <div class="pikchr-src" style="display:none;cursor:pointer;">
+          <pre><code class="pikchr-raw-src"></code></pre>
+        </div>
+      `;
+
+      // Safely assign text content to prevent XSS
+      wrapper.querySelector('code.pikchr-raw-src').textContent = srcText;
+
+      // Replace original pre block with the pikchr-wrapper
+      preEl.parentNode.replaceChild(wrapper, preEl);
+
+      const svgPane = wrapper.querySelector('.pikchr-svg');
+      const srcPane = wrapper.querySelector('.pikchr-src');
+
+      const toggle = (e) => {
+        if (e && e.target && e.target.closest('.copy-code-button')) {
+          return;
+        }
+        const isSrcVisible = srcPane.style.display !== 'none';
+        if (isSrcVisible) {
+          srcPane.style.display = 'none';
+          svgPane.style.display = 'block';
+          wrapper.classList.remove('pikchr-show-src');
+        } else {
+          svgPane.style.display = 'none';
+          srcPane.style.display = 'block';
+          wrapper.classList.add('pikchr-show-src');
+        }
+      };
+
+      svgPane.addEventListener('click', toggle);
+      srcPane.addEventListener('click', toggle);
+    });
+  } catch (err) {
+    console.error('Failed to initialize Pikchr WASM:', err);
+  }
+});
+</script>
+
+  </body>
+</html>
